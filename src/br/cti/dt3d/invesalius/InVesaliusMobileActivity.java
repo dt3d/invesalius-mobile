@@ -53,7 +53,6 @@ public class InVesaliusMobileActivity extends Activity implements OnClickListene
         
     }
     
-    @Override
     public void onClick(View v){
     	Intent intent;
     	//Verifica qual botão foi pressionado
@@ -93,7 +92,6 @@ public class InVesaliusMobileActivity extends Activity implements OnClickListene
 		builder.setCancelable(true);	    		
 		builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
 			
-			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.cancel();
 				

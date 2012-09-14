@@ -17,7 +17,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ExamplesListActivity extends Activity implements OnItemClickListener{
 	
@@ -46,7 +45,6 @@ public class ExamplesListActivity extends Activity implements OnItemClickListene
 		
     }
 	
-	@Override
 	public void onItemClick(AdapterView<?> parent, View view,
 	        int position, long id) {
 

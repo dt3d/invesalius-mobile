@@ -32,7 +32,6 @@ public class OrientacaoActivity extends Activity implements OnItemClickListener 
 
     }
 	
-	@Override
 	public void onItemClick(AdapterView<?> parent, View view,
 	        int position, long id) {
 			if(((TextView) view).getText().equals("Download demos...")){}

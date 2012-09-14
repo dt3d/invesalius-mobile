@@ -60,13 +60,11 @@ public class TesteImgs2Activity extends Activity implements OnClickListener, OnS
         sb.setProgress(nArq/2);
     }
 	
-	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
 		atual = progress;
 		image.selectImage(diretorio+files[progress],this);
 	}
 	
-	@Override
     public void onClick(View v){
     	//Verifica qual botão foi pressionado
 		ImageView zoom = (ImageView) findViewById(R.id.zoom);
@@ -85,12 +83,10 @@ public class TesteImgs2Activity extends Activity implements OnClickListener, OnS
 	    }
     }
 
-	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) {
 		
 	}
 
-	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		
 	}
