@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -56,7 +55,6 @@ public class DatasetsListActivity extends Activity implements OnItemClickListene
 				if(files[i].isDirectory() && !(files[i].isHidden())) array.add(files[i].getName());
 			}
 		}
-		else f.mkdirs();
 		Collections.sort(array);
 		final int array_size = array.size();
 		
@@ -111,27 +109,9 @@ public class DatasetsListActivity extends Activity implements OnItemClickListene
 	@Override	
     protected void onResume() {
         super.onResume();
-//        The activity has become visible (it is now "resumed").
-//        File[] files = f.listFiles();
 
         if (f != null && f.exists()){
-// ISSO JÁ ESTÁ SENDO FEITO NO ONCREATE. PRECISA SER REFEITO AQUI????
-//			for(int i=0; i<files.length;i++){
-//				String name = files[i].getName();
-//				if(files[i].isDirectory() && !(files[i].isHidden()) && !(array.contains(name))) 
-//					array.add(name);
-//				lv1.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1 , array));
-//				Collections.sort(array);
-//			}
 			array.add("Download demos...");
-        }else{
-        	// Se o caminho não existe, ele cria, então nunca vai dar esse erro.
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Path not found. Fix it in settings.");
-			builder.setPositiveButton("OK", this);
-			builder.setTitle("Error");
-			AlertDialog alert = builder.create();
-			alert.show();
         }
     }
 	
