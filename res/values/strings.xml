@@ -7,6 +7,7 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="filesDirectory">Files Directory:</string>
+	<string name="description">Define path in your device where the images are saved:</string>
     <string name="settings">SETTINGS</string>
 
 </resources>
