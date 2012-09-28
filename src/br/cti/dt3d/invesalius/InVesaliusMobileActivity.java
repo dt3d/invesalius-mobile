@@ -21,8 +21,6 @@ public class InVesaliusMobileActivity extends Activity implements OnClickListene
     /** Called when the activity is first created. */
 	
 	static String diretorio = "/";
-//	SharedPreferences settings = getPreferences(0);
-//    SharedPreferences.Editor editor = settings.edit();
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,13 +33,13 @@ public class InVesaliusMobileActivity extends Activity implements OnClickListene
         SharedPreferences settings = getSharedPreferences("general",0);
         SharedPreferences.Editor editor = settings.edit();
         diretorio = settings.getString("DIR", "0");
-//        Log.v("ivm", "1:"+diretorio);
         if(diretorio.equals("0")){
         	diretorio = Environment.getExternalStorageDirectory() + "/invesalius";
         	editor.putString("DIR", diretorio);
         	editor.commit();
         }
         
+        ImageView logoInvesalius = (ImageView)findViewById(R.id.logoInvesalius);
         Button datasets = (Button)findViewById(R.id.datasets);
         datasets.setOnClickListener(this);
         Button config = (Button)findViewById(R.id.config);
@@ -55,7 +53,7 @@ public class InVesaliusMobileActivity extends Activity implements OnClickListene
     
     public void onClick(View v){
     	Intent intent;
-    	//Verifica qual botão foi pressionado
+    	// Verifica qual botão foi pressionado
     	switch(v.getId()){
     		case R.id.datasets:
 	    		intent = new Intent(this, DatasetsListActivity.class);
@@ -87,7 +85,7 @@ public class InVesaliusMobileActivity extends Activity implements OnClickListene
     
     public static void MostraSobre(Context context){
     	AlertDialog.Builder builder = new AlertDialog.Builder(context);
-		//Mostra a dialog box "Sobre"
+		// Mostra a dialog box "Sobre"
 		builder.setMessage("Versão 1.0\nCentro de Tecnologia da Informação Renato Archer\n(www.cti.gov.br)\n\nAuthors:\nGuilherme H. P. da Silva\nGuilherme C. S. Ruppert\n");
 		builder.setCancelable(true);	    		
 		builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
