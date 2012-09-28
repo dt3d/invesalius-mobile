@@ -2,8 +2,8 @@ package br.cti.dt3d.invesalius;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Vector;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -30,7 +30,7 @@ public class DatasetsListActivity extends Activity implements OnItemClickListene
 	
 	static ListView lv1;
 	static EditText et1;
-	Vector<String> array = new Vector<String>();
+	ArrayList<String> array = new ArrayList<String>();
 	File f = new File(InVesaliusMobileActivity.diretorio);
 	static ProgressDialog dialog;
 	static CharSequence toDelete = "NULL";
@@ -38,7 +38,7 @@ public class DatasetsListActivity extends Activity implements OnItemClickListene
 	public static Activity a;
 	
 	ArrayAdapter<String> aa;
-		
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -55,7 +55,21 @@ public class DatasetsListActivity extends Activity implements OnItemClickListene
 				if(files[i].isDirectory() && !(files[i].isHidden())) array.add(files[i].getName());
 			}
 		}
-		Collections.sort(array);
+		
+		// Ordenar upper e lowercase juntos, porque o Collections.sort(), utilizado anteriormente, ordena maiúsculas e depois minúsculas.
+		int i = 0;
+		String[] arrayAux = new String[array.size()];
+		for (String a : array) {
+			arrayAux[i] = a;
+			i++;
+		}
+		Arrays.sort(arrayAux, new AlphabeticComparator());
+		array = new ArrayList<String>();
+		for (int j = 0; j < i; j++){
+			array.add(j, arrayAux[j]);
+		}
+		// *1 (tem um adendo no final do código para essa parte)
+
 		final int array_size = array.size();
 		
 		lv1=(ListView)findViewById(R.id.listView1);
@@ -90,7 +104,8 @@ public class DatasetsListActivity extends Activity implements OnItemClickListene
 		        		}
 		        	}
         		}
-	        	lista.add("Download demos...");
+	        	if (!lista.contains("Download demos..."))
+	        		lista.add("Download demos...");
 	        	aa =  new ArrayAdapter<String>(DatasetsListActivity.this,android.R.layout.simple_list_item_1, lista);
 	        	lv1=(ListView)findViewById(R.id.listView1);
 	            lv1.setAdapter(aa);       	
@@ -101,9 +116,12 @@ public class DatasetsListActivity extends Activity implements OnItemClickListene
 	    }); 
 		
 		// By using setAdpater method in listview we an add string array in list.
-		lv1.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1 , array));
+	    aa = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1 , array);
+		lv1.setAdapter(aa);
+		aa.notifyDataSetChanged();
 		lv1.setOnItemClickListener(this);
 		lv1.setOnItemLongClickListener(this);
+
 	}
 	
 	@Override	
@@ -111,13 +129,13 @@ public class DatasetsListActivity extends Activity implements OnItemClickListene
         super.onResume();
 
         if (f != null && f.exists()){
-			array.add("Download demos...");
+        	if (!array.contains("Download demos..."))
+        		array.add("Download demos...");
         }
     }
 	
 	public void onItemClick(AdapterView<?> parent, View view,	
 	        int position, long id) {
-//			Log.v("Gen", String.valueOf(position));
 			if(((TextView) view).getText().equals("Download demos...")){
 				Intent intent = new Intent(this, ExamplesListActivity.class);
 		    	startActivity(intent);
@@ -158,4 +176,13 @@ public class DatasetsListActivity extends Activity implements OnItemClickListene
 		lv1.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1 , array));
 	}
 	
+}
+
+// *1 - Comparator utilizado na ordenação.
+class AlphabeticComparator implements Comparator<Object> {
+	public int compare(Object o1, Object o2) {
+		String s1 = (String) o1;
+		String s2 = (String) o2;
+		return s1.toLowerCase().compareTo(s2.toLowerCase());
+	}
 }
