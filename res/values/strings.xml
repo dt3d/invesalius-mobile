@@ -3,7 +3,7 @@
 
     <string name="hello">Hello World, InVesaliusMobileActivity!</string>
     <string name="app_name">InVesalius Mobile</string>
-    
+
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="filesDirectory">Files Directory:</string>

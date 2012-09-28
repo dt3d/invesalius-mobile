@@ -19,9 +19,9 @@ import android.widget.ImageView;
 
 public class InVesaliusMobileActivity extends Activity implements OnClickListener{
     /** Called when the activity is first created. */
-	
+
 	static String diretorio = "/";
-	
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +29,7 @@ public class InVesaliusMobileActivity extends Activity implements OnClickListene
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.main);
-        
+
         SharedPreferences settings = getSharedPreferences("general",0);
         SharedPreferences.Editor editor = settings.edit();
         diretorio = settings.getString("DIR", "0");
@@ -38,7 +38,7 @@ public class InVesaliusMobileActivity extends Activity implements OnClickListene
         	editor.putString("DIR", diretorio);
         	editor.commit();
         }
-        
+
         ImageView logoInvesalius = (ImageView)findViewById(R.id.logoInvesalius);
         Button datasets = (Button)findViewById(R.id.datasets);
         datasets.setOnClickListener(this);
@@ -48,9 +48,8 @@ public class InVesaliusMobileActivity extends Activity implements OnClickListene
         help.setOnClickListener(this);
         ImageView logo = (ImageView)findViewById(R.id.logo2);
         logo.setOnClickListener(this);
-        
     }
-    
+
     public void onClick(View v){
     	Intent intent;
     	// Verifica qual botão foi pressionado
@@ -73,7 +72,7 @@ public class InVesaliusMobileActivity extends Activity implements OnClickListene
 	    		startActivity(i);
 	    }
     }
-    
+
     public void mudaDiretorio(String dir){
     	SharedPreferences settings = getSharedPreferences("general",0);
         Log.v("ivm","2:"+settings.getString("DIR","0"));
@@ -82,21 +81,17 @@ public class InVesaliusMobileActivity extends Activity implements OnClickListene
 		editor.putString("DIR", InVesaliusMobileActivity.diretorio);
 		editor.commit();
     }
-    
+
     public static void MostraSobre(Context context){
     	AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		// Mostra a dialog box "Sobre"
 		builder.setMessage("Versão 1.0\nCentro de Tecnologia da Informação Renato Archer\n(www.cti.gov.br)\n\nAuthors:\nGuilherme H. P. da Silva\nGuilherme C. S. Ruppert\n");
-		builder.setCancelable(true);	    		
+		builder.setCancelable(true);
 		builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-			
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.cancel();
-				
 			}
 		});
 		builder.show();
     }
-    
-    
 }

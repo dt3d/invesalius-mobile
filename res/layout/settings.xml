@@ -34,7 +34,7 @@
         android:layout_below="@+id/textView2"
         android:text="@string/description"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-    
+
     <EditText
         android:id="@+id/dir"
         android:layout_width="wrap_content"

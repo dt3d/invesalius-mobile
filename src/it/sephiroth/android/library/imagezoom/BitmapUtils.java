@@ -3,7 +3,7 @@ package it.sephiroth.android.library.imagezoom;
 import android.graphics.Bitmap;
 
 public class BitmapUtils {
-	
+
 	public static Bitmap resizeBitmap( Bitmap input, int destWidth, int destHeight )
 	{
 		int srcWidth = input.getWidth();

@@ -14,12 +14,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class SettingsActivity extends Activity implements OnClickListener{
-	
+
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
-        
+
         Button set = (Button)findViewById(R.id.ok2);
         set.setOnClickListener(this);
         Button cancel = (Button)findViewById(R.id.cancel);
@@ -27,7 +27,7 @@ public class SettingsActivity extends Activity implements OnClickListener{
         EditText dir = (EditText)findViewById(R.id.dir);
         dir.setText(InVesaliusMobileActivity.diretorio);
 	}
-	
+
 	public void onClick(View v){
 		EditText dir = (EditText)findViewById(R.id.dir);
         SharedPreferences settings = getSharedPreferences("general",0);
@@ -63,5 +63,4 @@ public class SettingsActivity extends Activity implements OnClickListener{
 	    		break;
 		}
 	}
-
 }

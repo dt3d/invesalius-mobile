@@ -17,19 +17,19 @@ import android.view.ViewConfiguration;
 import android.widget.Toast;
 
 public class ImageViewTouch extends ImageViewTouchBase {
-	
-	static final float					MIN_ZOOM	= 0.5f;
-	protected ScaleGestureDetector	mScaleDetector;
-	protected GestureDetector			mGestureDetector;
-	protected int							mTouchSlop;
-	protected float						mCurrentScaleFactor;
-	protected float						mScaleFactor;
-	protected int							mDoubleTapDirection;
-	protected GestureListener			mGestureListener;
-	protected ScaleListener				mScaleListener;
-	public static final int				PAN_MODE	=	1;
-	public static final int				BC_MODE	=	0;
-	private int							mode = PAN_MODE;
+
+	static final float MIN_ZOOM = 0.5f;
+	protected ScaleGestureDetector mScaleDetector;
+	protected GestureDetector mGestureDetector;
+	protected int mTouchSlop;
+	protected float mCurrentScaleFactor;
+	protected float mScaleFactor;
+	protected int mDoubleTapDirection;
+	protected GestureListener mGestureListener;
+	protected ScaleListener mScaleListener;
+	public static final int PAN_MODE =1;
+	public static final int BC_MODE = 0;
+	private int mode = PAN_MODE;
 	private int brilho = 0;
 	private int contraste = 0;
 	Bitmap bitmap;
@@ -39,12 +39,12 @@ public class ImageViewTouch extends ImageViewTouchBase {
 	Bitmap bm ;
 	int sensitivity = 100;
 	int nmax=0;
-	
-		public ImageViewTouch( Context context, AttributeSet attrs )
+
+	public ImageViewTouch( Context context, AttributeSet attrs )
 	{
 		super( context, attrs );
 	}
-	
+
 	@Override
 	protected void init()
 	{
@@ -58,21 +58,20 @@ public class ImageViewTouch extends ImageViewTouchBase {
 		mCurrentScaleFactor = 1f;
 		mDoubleTapDirection = 1;
 	}
-	
+
 	public void selectImage(String file, Context c)
 	{
 		String s;
-//		int b=0;
 		int j=0,i=2;
 		File f = new File(file);
-		
+
 		try {
 			FileInputStream i1 = new FileInputStream(f);
 			long file_length = f.length();
 			BufferedReader input1 =  new BufferedReader(new InputStreamReader(i1));
 			s = input1.readLine();
 			s = input1.readLine();
-			
+
 			String[] dim = s.split(" ");
 			bitmapWidth = Integer.parseInt(dim[0]);
 			bitmapHeight = Integer.parseInt(dim[1]);
@@ -84,7 +83,7 @@ public class ImageViewTouch extends ImageViewTouchBase {
 			i1.read(buff, 0, (int)f.length());
 			do{i++;}while(buff[i]!='\n');
 			do{i++;}while(buff[i]!='\n');
-			
+
 			i++;
 			while(i<file_length){
 				pix[j] = ((buff[i] << 8) & 0xFF00) | (0xFF & buff[i+1]);
@@ -92,24 +91,22 @@ public class ImageViewTouch extends ImageViewTouchBase {
 				i=i+2;
 			}
 			bm = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888);
-			
 			input1.close();
 			i1.close();
-			
 		}
 		catch ( IOException e ) {
 			Toast.makeText( c, e.toString(), Toast.LENGTH_LONG ).show();
 		}
 		editarContraste(0,0);
 	}
-	
+
 	@Override
 	public void setImageRotateBitmapReset( RotateBitmap bitmap, boolean reset )
 	{
 		super.setImageRotateBitmapReset( bitmap, reset );
 		mScaleFactor = getMaxZoom() / 6;
 	}
-	
+
 	@Override
 	public boolean onTouchEvent( MotionEvent event )
 	{
@@ -125,14 +122,15 @@ public class ImageViewTouch extends ImageViewTouchBase {
 		}
 		return true;
 	}
-	
+
 	@Override
 	protected void onZoom( float scale )
 	{
 		super.onZoom( scale );
-		if ( !mScaleDetector.isInProgress() ) mCurrentScaleFactor = scale;
+		if ( !mScaleDetector.isInProgress() )
+			mCurrentScaleFactor = scale;
 	}
-	
+
 	protected float onDoubleTapPost( float scale, float maxZoom )
 	{
 		if ( mDoubleTapDirection == 1 ) {
@@ -147,9 +145,9 @@ public class ImageViewTouch extends ImageViewTouchBase {
 			return 1f;
 		}
 	}
-	
+
 	class GestureListener extends GestureDetector.SimpleOnGestureListener {
-		
+
 		@Override
 		public boolean onDoubleTap( MotionEvent e )
 		{
@@ -169,8 +167,7 @@ public class ImageViewTouch extends ImageViewTouchBase {
 			}
 			return super.onDoubleTap( e );
 		}
-		
-		
+
 		@Override
 		public boolean onScroll( MotionEvent e1, MotionEvent e2, float distanceX, float distanceY )
 		{
@@ -188,7 +185,7 @@ public class ImageViewTouch extends ImageViewTouchBase {
 			}
 			return super.onScroll( e1, e2, distanceX, distanceY );
 		}
-		
+
 		@Override
 		public boolean onFling( MotionEvent e1, MotionEvent e2, float velocityX, float velocityY )
 		{
@@ -207,9 +204,9 @@ public class ImageViewTouch extends ImageViewTouchBase {
 			return super.onFling( e1, e2, velocityX, velocityY );
 		}
 	}
-	
+
 	class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-		
+
 		@SuppressWarnings( "unused" )
 		@Override
 		public boolean onScale( ScaleGestureDetector detector )
@@ -227,13 +224,13 @@ public class ImageViewTouch extends ImageViewTouchBase {
 			return false;
 		}
 	}
-	
+
 	public void changeMode(int newmode){
 		mode = newmode;
 		if(mode==PAN_MODE)Log.v("IMG", "Modo zoom");
 		else if(mode==BC_MODE)Log.v("IMG", "Modo Brilho e Contraste");
 	}
-	
+
 	public void editarContraste(float dContraste, float dBrilho){
 		contraste+=(dContraste)*nmax/255;
 		brilho+=(dBrilho)*nmax/255;
@@ -250,9 +247,7 @@ public class ImageViewTouch extends ImageViewTouchBase {
 			else if(value<0)value=0;
 			pix2[index]= 0xFF000000 | value << 16 | value << 8 | value;
 		}
-		
 		bm.setPixels(pix2, 0, bitmapWidth, 0, 0, bitmapWidth, bitmapHeight);
 		setImageBitmapReset( bm, false);
 	}
-	
 }

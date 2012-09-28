@@ -19,15 +19,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class ExamplesListActivity extends Activity implements OnItemClickListener{
-	
+
 	String[] lista = {"Demo 1","Demo 2", "Demo 3"};
-//	static Dialog dialog;
 	public static Context c;
 	ProgressDialog dialog;
 	File f = new File(InVesaliusMobileActivity.diretorio);
 	Vector<String> array = new Vector<String>();
 	public static Activity a;
-	
+
 	@Override
     protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -39,15 +38,12 @@ public class ExamplesListActivity extends Activity implements OnItemClickListene
 		c = this;
 		a = this;
 		ListView lv =(ListView)findViewById(R.id.exemplos);
-		
+
 		lv.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1 , lista));
 		lv.setOnItemClickListener(this);
-		
     }
-	
-	public void onItemClick(AdapterView<?> parent, View view,
-	        int position, long id) {
 
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Boolean[] encontrou = new Boolean[3];
 		for(int i = 0; i < 3; i++) encontrou[i] = false;
 
@@ -67,7 +63,7 @@ public class ExamplesListActivity extends Activity implements OnItemClickListene
 	               public void onClick(DialogInterface dialog, int id) {
 	               }
 	           });
-	    
+
 		CharSequence s = ((TextView) view).getText();
 		if(s.equals(lista[0])){
 			if (encontrou[0]){
@@ -75,7 +71,6 @@ public class ExamplesListActivity extends Activity implements OnItemClickListene
 				AlertDialog alert = builder.create();
 				alert.show();
 			}else{
-//				dialog = ProgressDialog.show(this, "", "Downloading Files. Please wait...", true);
 				new DownloadExampleTask().execute("demo1.zip",InVesaliusMobileActivity.diretorio+"/");
 			}
 		}
@@ -85,7 +80,6 @@ public class ExamplesListActivity extends Activity implements OnItemClickListene
 				AlertDialog alert = builder.create();
 				alert.show();
 			}else{
-//				dialog = ProgressDialog.show(this, "", "Downloading Files. Please wait...", true);
 				new DownloadExampleTask().execute("demo2.zip",InVesaliusMobileActivity.diretorio+"/");
 			}
 		}
@@ -95,15 +89,11 @@ public class ExamplesListActivity extends Activity implements OnItemClickListene
 				AlertDialog alert = builder.create();
 				alert.show();
 			}else{
-//				dialog = ProgressDialog.show(this, "", "Downloading Files. Please wait...", true);
 				new DownloadExampleTask().execute("demo3.zip",InVesaliusMobileActivity.diretorio+"/");
 			}
 		}
-			    	
-	}
-	
-	public static void cancelDialog(){
-//		dialog.cancel();
 	}
 
+	public static void cancelDialog(){
+	}
 }
