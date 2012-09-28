@@ -107,7 +107,7 @@ public class ImageViewTouch extends ImageViewTouchBase {
 	public void setImageRotateBitmapReset( RotateBitmap bitmap, boolean reset )
 	{
 		super.setImageRotateBitmapReset( bitmap, reset );
-		mScaleFactor = getMaxZoom() / 3;
+		mScaleFactor = getMaxZoom() / 6;
 	}
 	
 	@Override
@@ -136,8 +136,8 @@ public class ImageViewTouch extends ImageViewTouchBase {
 	protected float onDoubleTapPost( float scale, float maxZoom )
 	{
 		if ( mDoubleTapDirection == 1 ) {
-			if ( ( scale + ( mScaleFactor * 2 ) ) <= maxZoom ) {
-				return scale + mScaleFactor;
+			if ( ( scale * 2 ) <= maxZoom ) {
+				return scale * 2;
 			} else {
 				mDoubleTapDirection = -1;
 				return maxZoom;
