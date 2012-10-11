@@ -6,8 +6,11 @@
 
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
-    <string name="filesDirectory">Files Directory:</string>
-	<string name="description">Define path in your device where the images are saved:</string>
+    <string name="filesDirectory">Files Directory</string>
+	<string name="descriptionFilesDirectory">Define path in your device where the images are saved:</string>
+    <string name="downloadDemos">Download Demos</string>
+	<string name="descriptionDownloadDemos">Download some examples of images:</string>
     <string name="settings">SETTINGS</string>
+    <string name="click">Click here</string>
 
 </resources>

@@ -80,32 +80,28 @@ public class DatasetsListActivity extends Activity implements OnItemClickListene
 	        	String[] busca = DatasetsListActivity.et1.getText().toString().toLowerCase().split(" ");
 	        	ArrayList<String> lista = new ArrayList<String>();
 	        	for (int i = 0; i < array_size; i++) {
-	        		if (!array.get(i).toLowerCase().equalsIgnoreCase("download demos...")){
-		        		if (busca.length == 0 || (busca.length == 1 && busca[0].equalsIgnoreCase(""))){
-		        			lista.add(array.get(i));
-		        		}else{
-			        		Integer[] encontrados = new Integer[busca.length];
-			        		for (int m = 0; m < busca.length; m++) encontrados[m] = 0;
-			        		String[] opcao = array.get(i).toLowerCase().split(" ");
-			        		for (int j = 0; j < opcao.length; j++){
-			        			for (int k = 0; k < busca.length; k++){
-					        	   	if (opcao[j].contains(busca[k])){
-					        	   		encontrados[k]++;
-					        	   	}
-			        			}
-			        		}
-			        		Boolean verifica = true;
-			        		for (int l = 0; l < busca.length; l++){
-			        			if (encontrados[l] == 0)
-			        				verifica = false;
-			        		}
-			        		if (verifica)
-			        			lista.add(array.get(i));
+	        		if (busca.length == 0 || (busca.length == 1 && busca[0].equalsIgnoreCase(""))){
+	        			lista.add(array.get(i));
+	        		}else{
+		        		Integer[] encontrados = new Integer[busca.length];
+		        		for (int m = 0; m < busca.length; m++) encontrados[m] = 0;
+		        		String[] opcao = array.get(i).toLowerCase().split(" ");
+		        		for (int j = 0; j < opcao.length; j++){
+		        			for (int k = 0; k < busca.length; k++){
+				        	   	if (opcao[j].contains(busca[k])){
+				        	   		encontrados[k]++;
+				        	   	}
+		        			}
 		        		}
-		        	}
+		        		Boolean verifica = true;
+		        		for (int l = 0; l < busca.length; l++){
+		        			if (encontrados[l] == 0)
+		        				verifica = false;
+		        		}
+		        		if (verifica)
+		        			lista.add(array.get(i));
+	        		}
         		}
-	        	if (!lista.contains("Download demos..."))
-	        		lista.add("Download demos...");
 	        	aa =  new ArrayAdapter<String>(DatasetsListActivity.this,android.R.layout.simple_list_item_1, lista);
 	        	lv1=(ListView)findViewById(R.id.listView1);
 	            lv1.setAdapter(aa);      	
@@ -126,40 +122,28 @@ public class DatasetsListActivity extends Activity implements OnItemClickListene
 	@Override	
     protected void onResume() {
         super.onResume();
-        if (f != null && f.exists()){
-        	if (!array.contains("Download demos..."))
-        		array.add("Download demos...");
-        }
     }
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		if(((TextView) view).getText().equals("Download demos...")){
-			Intent intent = new Intent(this, ExamplesListActivity.class);
-	    	startActivity(intent);
-		}
-		else{
-			Intent intent = new Intent(this, OrientacaoActivity.class);
-	    	intent.putExtra("DIR",InVesaliusMobileActivity.diretorio+"/"+((TextView) view).getText());
-	    	startActivity(intent);
-		}
+		Intent intent = new Intent(this, OrientacaoActivity.class);
+    	intent.putExtra("DIR",InVesaliusMobileActivity.diretorio+"/"+((TextView) view).getText());
+    	startActivity(intent);
 	}
 
 	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
-		if(!((TextView) view).getText().equals("Download demos...")){
-			toDelete = ((TextView) view).getText();
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Are you sure ?");
-			builder.setCancelable(false);
-			builder.setPositiveButton("Yes", this);
-			builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-			           public void onClick(DialogInterface dialog, int id) {
-			                dialog.cancel();
-			           }
-			       });
-			builder.setTitle("Delete Files");
-			AlertDialog alert = builder.create();
-			alert.show();
-		}
+		toDelete = ((TextView) view).getText();
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Are you sure ?");
+		builder.setCancelable(false);
+		builder.setPositiveButton("Yes", this);
+		builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		                dialog.cancel();
+		           }
+		       });
+		builder.setTitle("Delete Files");
+		AlertDialog alert = builder.create();
+		alert.show();
 		return true;
 	}
 

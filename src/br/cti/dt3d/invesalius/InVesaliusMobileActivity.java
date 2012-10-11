@@ -1,5 +1,7 @@
 package br.cti.dt3d.invesalius;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -55,7 +57,29 @@ public class InVesaliusMobileActivity extends Activity implements OnClickListene
     	// Verifica qual botão foi pressionado
     	switch(v.getId()){
     		case R.id.datasets:
-	    		intent = new Intent(this, DatasetsListActivity.class);
+    			File f = new File(InVesaliusMobileActivity.diretorio);
+    			if (f.list().length > 0){
+    				intent = new Intent(this, DatasetsListActivity.class);
+    			}else{
+    				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    				builder.setMessage("No datasets found. Do you want to download demo images?");
+    				builder.setCancelable(false);
+    				builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			        	public void onClick(DialogInterface dialog, int id) {
+			            	dialog.cancel();
+			        	}
+    				});
+    				builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+    					public void onClick(DialogInterface dialog, int id) {
+    						Intent intent = new Intent(InVesaliusMobileActivity.this, ExamplesListActivity.class);
+    						startActivity(intent);
+    					}
+    				});
+    				builder.setTitle("No Datasets");
+    				AlertDialog alert = builder.create();
+    				alert.show();
+    				break;
+    			}
 	    		startActivity(intent);
 	    		break;
 	       	case R.id.config:
