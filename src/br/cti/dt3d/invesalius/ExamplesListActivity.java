@@ -65,31 +65,15 @@ public class ExamplesListActivity extends Activity implements OnItemClickListene
 	           });
 
 		CharSequence s = ((TextView) view).getText();
-		if(s.equals(lista[0])){
-			if (encontrou[0]){
-				builder.setMessage("Demo 1 already exists!");
-				AlertDialog alert = builder.create();
-				alert.show();
-			}else{
-				new DownloadExampleTask().execute("demo1.zip",InVesaliusMobileActivity.diretorio+"/");
-			}
-		}
-		else if(s.equals(lista[1])){
-			if (encontrou[1]){
-				builder.setMessage("Demo 2 already exists!");
-				AlertDialog alert = builder.create();
-				alert.show();
-			}else{
-				new DownloadExampleTask().execute("demo2.zip",InVesaliusMobileActivity.diretorio+"/");
-			}
-		}
-		else if(s.equals(lista[2])){
-			if (encontrou[2]){
-				builder.setMessage("Demo 3 already exists!");
-				AlertDialog alert = builder.create();
-				alert.show();
-			}else{
-				new DownloadExampleTask().execute("demo3.zip",InVesaliusMobileActivity.diretorio+"/");
+		for (int i = 0; i < 3; i++){
+			if(s.equals(lista[i])){
+				if (encontrou[i]){
+					builder.setMessage("Demo " + (int)(i+1) + " already exists!");
+					AlertDialog alert = builder.create();
+					alert.show();
+				}else{
+					new DownloadExampleTask().execute("demo" + (int)(i+1) + ".zip",InVesaliusMobileActivity.diretorio+"/");
+				}
 			}
 		}
 	}

@@ -18,7 +18,7 @@ import android.util.Log;
 
 public class DownloadExampleTask extends AsyncTask<String, Integer, Integer> {
 
-	static boolean erro, cancel;
+	static boolean erro;
 	static int total=0, progresso=0;
 	ProgressDialog dialog;
 
@@ -85,7 +85,7 @@ public class DownloadExampleTask extends AsyncTask<String, Integer, Integer> {
             publishProgress(total, progresso, 0, 0);
 
             // Transfere os dados para o arquivo e fecha o FileOutputStream...
-            if (!cancel){
+            if (!isCancelled()){
             	fos.write(baf.toByteArray());
             }
             fos.close();
@@ -97,7 +97,7 @@ public class DownloadExampleTask extends AsyncTask<String, Integer, Integer> {
             erro = true;
         }
 
-		if(!erro && !cancel){
+		if(!erro && !isCancelled()){
 			publishProgress(total, progresso, 1, 0);
 			Decompress d = new Decompress(dir[1]+"Exemplo.zip", dir[1]);
 			d.unzip();
@@ -106,6 +106,8 @@ public class DownloadExampleTask extends AsyncTask<String, Integer, Integer> {
 			publishProgress(total, progresso, 0, 1);
 			return 1;
 		}else{
+			File f = new File(dir[1]+"Exemplo.zip");
+			f.delete();
 			return 0;
 		}
 	}
@@ -127,8 +129,6 @@ public class DownloadExampleTask extends AsyncTask<String, Integer, Integer> {
 	}
 
 	public void cancelTask(){
-		if (dialog.getButton(-2).getText().toString().equalsIgnoreCase("Cancel"))
-			cancel = true;
 		cancel(true);
 	}
 

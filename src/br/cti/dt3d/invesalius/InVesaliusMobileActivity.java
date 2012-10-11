@@ -109,7 +109,7 @@ public class InVesaliusMobileActivity extends Activity implements OnClickListene
     public static void MostraSobre(Context context){
     	AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		// Mostra a dialog box "Sobre"
-		builder.setMessage("Versão 1.0\nCentro de Tecnologia da Informação Renato Archer\n(www.cti.gov.br)\n\nAuthors:\nGuilherme H. P. da Silva\nGuilherme C. S. Ruppert\n");
+    	builder.setMessage("Versão 1.0\nCentro de Tecnologia da Informação Renato Archer\n(www.cti.gov.br)\n\nAuthors:\nGuilherme H. P. da Silva\nGuilherme C. S. Ruppert\nWesley T. S. T. Ide\n");
 		builder.setCancelable(true);
 		builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
