@@ -41,6 +41,7 @@ public class DownloadExampleTask extends AsyncTask<String, Integer, Integer> {
 	protected Integer doInBackground(String... dir){
 		String fileURL = "http://www.cti.gov.br/dt3d/invesalius-mobile/demo/" + dir[0];
 		String fileName = dir[1] + "Exemplo.zip";
+		erro = false;
 
 		try{
             // Cria um arquivo para receber a String fileName
