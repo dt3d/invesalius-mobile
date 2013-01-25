@@ -55,9 +55,12 @@ public class InVesaliusMobileActivity extends Activity implements OnClickListene
     public void onClick(View v){
     	Intent intent;
     	// Verifica qual botão foi pressionado
+		File f = new File(InVesaliusMobileActivity.diretorio);
+		if (!f.exists()){
+			f.mkdir();
+		}
     	switch(v.getId()){
     		case R.id.datasets:
-    			File f = new File(InVesaliusMobileActivity.diretorio);
     			if (f.list() != null && f.list().length > 0){
     				intent = new Intent(this, DatasetsListActivity.class);
     			}else{
