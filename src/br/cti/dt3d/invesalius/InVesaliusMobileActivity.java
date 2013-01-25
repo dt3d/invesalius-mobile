@@ -58,7 +58,7 @@ public class InVesaliusMobileActivity extends Activity implements OnClickListene
     	switch(v.getId()){
     		case R.id.datasets:
     			File f = new File(InVesaliusMobileActivity.diretorio);
-    			if (f.list().length > 0){
+    			if (f.list() != null && f.list().length > 0){
     				intent = new Intent(this, DatasetsListActivity.class);
     			}else{
     				AlertDialog.Builder builder = new AlertDialog.Builder(this);
